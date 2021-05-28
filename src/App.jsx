@@ -1,16 +1,16 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom';
 import Payment from "./Payment";
-import SuccessPage from "./pages/SuccessPage";
-import LandingPage from "./pages/LandingPage";
+import SuccessPage from "./SuccessPage";
+import PayWithCard from "./PayWithCard";
 
 function App() {
 
 
   return (
     <Switch>
-        <Route exact path={'/'} component={LandingPage} />
-        <Route exact path="/standard-payment" component={Payment}/>
+        <Route exact path="/" component={Payment}/>
+        <Route path="/pay" component={PayWithCard}/>
         <Route path="/successful" component={SuccessPage}/>
     </Switch>
   )
