@@ -19,7 +19,7 @@ const paymentOptions = [
 
 const Payment = () => {
     const toast = useToast()
-    const [paymentLink, setPaymentLink] = useState();
+    const [paymentLink, setPaymentLink] = useState(); //comment out to disable iframe
     const { control, errors, handleSubmit, formState } = useForm({
         mode:'onChange'
     });
@@ -30,8 +30,8 @@ const Payment = () => {
         if(data?.data){
             const { data: dataResult } = data;
             toast({title: `${dataResult.message}`, status:"success"})
-            // window.location.href = `${dataResult.paymentLink}`;
-            setPaymentLink(`${dataResult.paymentLink}`)
+            // window.location.href = `${dataResult.paymentLink}`; //uncomment to  use redirect
+            setPaymentLink(`${dataResult.paymentLink}`) //comment out to disable iframe
         }
     },[data])
     const handlePayment = (values) => {
@@ -56,7 +56,8 @@ const Payment = () => {
                 frameBorder="0"
                 height="625px"
                 width="100%" style={{position:"absolute", zIndex: 5}}
-            />}
+            />
+            }  //comment out to disable iframe
             <Box w="100%" d="flex" justifyContent="center" alignItems="center" flexDirection="column" mt="2.5rem">
                 <Text fontSize="2xl">Merchant Payment Page</Text>
                 <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
