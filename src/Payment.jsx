@@ -1,10 +1,11 @@
-import React, {useEffect} from "react";
-import {Box, Button, Container, Flex, Image, Text, useToast,} from "@chakra-ui/react";
-import {Input, PriceDetails} from "./Component";
+import React from 'react';
+import {useSetRecoilState} from "recoil";
+import { useHistory } from 'react-router-dom'
+import {Box, Button, Container, Text} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
-import {useMutation} from "react-query";
-import {makePayment} from "./api/payment";
-import Landing from "./assets/img/landing.png";
+import {Input, Select} from './Component';
+import {paymentStateDetails} from "./atoms/paymentState";
+
 
 const amount = 2700
 
@@ -13,37 +14,17 @@ const generateRandomNumber = (min, max) => {
 };
 
 const Payment = () => {
-  const toast = useToast();
-  const {control, errors, handleSubmit, formState} = useForm({
-    mode: "onChange",
-  });
-  const mutations = useMutation(makePayment);
-  const {mutate, isLoading, data} = mutations;
+    const history = useHistory()
+    const { control, errors, handleSubmit, formState } = useForm({
+        mode:'onChange'
+    });
 
+    const setPaymentDetails = useSetRecoilState(paymentStateDetails)
 
-  useEffect(() => {
-    if (data?.data) {
-      const {data: dataResult} = data;
-      toast({title: `${dataResult.message}`, status: "success"});
-      window.location.href = `${dataResult.paymentLink}`;
+    const handlePayment = (values) => {
+            setPaymentDetails(values)
+        history.push('/pay')
     }
-  }, [data]);
-
-  const handlePayment = (values) => {
-    const newValue = {
-      ...values,
-      amount: amount,
-      redirectUrl: "https://www.credodemo.com/paymentsuccess",
-      transRef: `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
-        10,
-        90
-      )}`,
-      currency: 'NGN',
-      paymentOptions: 'CARD,BANK'
-    };
-
-    mutate(newValue);
-  };
 
   return (
     <>
