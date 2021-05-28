@@ -57,7 +57,7 @@ const Payment = () => {
                 height="625px"
                 width="100%" style={{position:"absolute", zIndex: 5}}
             />
-            }  //comment out to disable iframe
+            }
             <Box w="100%" d="flex" justifyContent="center" alignItems="center" flexDirection="column" mt="2.5rem">
                 <Text fontSize="2xl">Merchant Payment Page</Text>
                 <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
@@ -66,8 +66,8 @@ const Payment = () => {
                             <Input name="customerEmail" control={control} errors={errors} type="text" defaultValue="" placeholder="Enter your email" rules={{required:{value:true, message:'Please enter email'}}} />
                             <Input name="customerPhoneNo" control={control} errors={errors} type="number" defaultValue="" placeholder="Enter phone number" rules={{required:{value:true, message:'Please enter phone number'}}} />
                             <Input name="amount" control={control} errors={errors} type="number" defaultValue="" placeholder="Enter amount" rules={{required:{value:true, message:'Please enter amount'}}} />
-                            <Select name="currency" errors={errors} defaultValue="" control={control} options={currencyOptions} rules={{required:{value:true, message:'Please select currency'}}}/>
-                            <Select name="paymentOptions" errors={errors} defaultValue="" control={control} options={paymentOptions} rules={{required:{value:true, message:'Please select payment option'}}}/>
+                            <Select name="currency" errors={errors} defaultValue="" control={control} options={currencyOptions} rules={{required:{value:true, message:'Please select currency'}}} placeholder={'Please select currency'}/>
+                            <Select name="paymentOptions" errors={errors} defaultValue="" control={control} options={paymentOptions} rules={{required:{value:true, message:'Please select payment option'}}} placeholder={'Please select payment option'}/>
                         <Box w="100%" d="flex" justifyContent="center" alignItems="center" mt="1rem">
                             <Button colorScheme="green" w="10rem" h="3rem" borderRadius="1rem" isLoading={isLoading} variant="outline" isDisabled={!formState.isValid} type="submit">Make Payment</Button>
                         </Box>
