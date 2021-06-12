@@ -12,25 +12,11 @@ import {paymentStateDetails} from "./atoms/paymentState";
 
 //
 // {
-//     "orderAmount": 5000,
-//     "orderCurrency": "NGN",
 //     "cardNumber": "5399670123490229",
 //     "expiryMonth": "05",
 //     "expiryYear": "22",
 //     "securityCode": "439",
-//     "transRef": "iy67f64hvc63",
-//     "customerEmail": "cirochwukunle@example.com",
-//     "customerName": "Ciroma Chukwuma Adekunle",
-//     "customerPhoneNo": "2348012345678",
-//     "paymentSlug": "0H0UOEsawNjkIxgspANd"
 // }
-
-// amount: "500"
-// currency: "NGN"
-// customerEmail: "osbornetunde@gmail.com"
-// customerName: "Tunde Elliot Osborne"
-// customerPhoneNo: "08032698324"
-// paymentOptions: "CARD"
 
 cardValidator.creditCardType.addCard({
     niceType: 'VERVE',
@@ -62,11 +48,13 @@ const PayWithCard = ( ) => {
 
     const paymentDetails = useRecoilValue(paymentStateDetails);
 
-    console.log("======>", paymentDetails)
+    // console.log("======>", paymentDetails)
 
     const mutations  = useMutation(directCharge);
     const { mutate, isLoading, data } = mutations;
     const { result } = useResponse(data, 'Payment Successful', 'Failed to make payment');
+
+    console.log("result", result)
 
     useEffect(() => {
         if (Object.entries(result).length > 0) {
@@ -82,16 +70,22 @@ const PayWithCard = ( ) => {
         let month = values.expiryDate.split('/')[0];
         let year = values.expiryDate.split('/')[1];
 
-        const rechargeDetails = {
-            currency_code: 'NGN',
-            cardDetails: {
-                ...values,
-                expiryMonth: month,
-                expiryYear: year,
-            },
-        };
-        delete rechargeDetails.cardDetails.expiryDate;
-        mutate(rechargeDetails);
+        const paymentValues = {
+            "orderAmount": +paymentDetails.amount,
+            "orderCurrency": paymentDetails.currency,
+            customerEmail: paymentDetails.customerEmail,
+            customerPhoneNo: paymentDetails.customerPhoneNo,
+            customerName: paymentDetails.customerName,
+            "paymentSlug": "0H0UOEsawNjkIxgspANd",
+            "transRef": "iy67f64hvc63",
+            expiryMonth: month,
+            expiryYear: year,
+            cardNumber: values.cardNumber,
+            securityCode: values.securityCode
+
+        }
+        console.log("payment value", paymentValues)
+        mutate(paymentValues);
     };
     return (
         <Container maxW="container.xl" position={"relative"}>
@@ -151,7 +145,7 @@ const PayWithCard = ( ) => {
                             type="tel"
                             control={control}
                             errors={errors}
-                            name="cvv"
+                            name="securityCode"
                             rules={{
                                 required: { value: true, message: 'CVV number is required' },
                                 maxLength: { value: 3, message: 'Must be 3 digits' },
