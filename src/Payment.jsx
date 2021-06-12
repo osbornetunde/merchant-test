@@ -39,7 +39,7 @@ const Payment = () => {
             ...values,
             amount: +values.amount,
             redirectUrl: 'https://www.credodemo.com/paymentsuccess',
-            transRef: 'iy67f64hvc63'
+            transRef: 'iy67f64hvc70'
         }
         console.log("values",newValue)
         mutate(newValue)
@@ -52,10 +52,12 @@ const Payment = () => {
             <iframe
                 title="Credo Payment"
                 src={paymentLink}
-                sandbox="allow-scripts allow-same-origin allow-forms"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox"
                 frameBorder="0"
                 height="625px"
-                width="100%" style={{position:"absolute", zIndex: 5}}
+                    width="100%"
+                    style={{ position: "absolute", zIndex: 5 }}
+                    name="pay"
             />
             }
             <Box w="100%" d="flex" justifyContent="center" alignItems="center" flexDirection="column" mt="2.5rem">
