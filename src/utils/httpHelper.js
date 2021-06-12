@@ -4,7 +4,7 @@ const axiosInstance = axios.create({
     // baseURL: 'https://api.public.credodemo.com/credo-payment/v1/',
     // headers: { Authorization: 'pk_demo-HoLeGI1eWe6fCxEUEmvkzzAlVdIEL8.V1PWN17N7K-d' },
     baseURL:'https://credo-payments.nugitech.com/v1/',
-    headers:{Authorization: 'pk_live-qhuHZyFwf4Qgu5NNjhitZaJx3Z41wu.SNuihBvIZd-l'}
+    headers:{Authorization: 'sk_demo-aMvPpPSYbervjkf67vV33shuTDcxus.ZZpeJxYr4Q-d'}
 });
 
 const responseHandler = (response) => {
