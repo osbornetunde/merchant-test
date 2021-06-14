@@ -42,7 +42,7 @@ const Payment = () => {
         const newValue = {
           ...values,
           amount: +values.amount,
-          redirectUrl:"https://merchant-test.vercel.app/successful",
+          redirectUrl: "https://www.credodemo.com/paymentsuccess",
           transRef: `iy67f${generateRandomNumber(
             10,
             60
