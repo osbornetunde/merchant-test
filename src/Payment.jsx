@@ -16,10 +16,14 @@ const paymentOptions = [
     {value: 'CASH', label:'Cash'}
 ]
 
+const generateRandomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+console.log(generateRandomNumber(100, 200));
 
 const Payment = () => {
     const toast = useToast()
-    const [paymentLink, setPaymentLink] = useState(); //comment out to disable iframe
+    // const [paymentLink, setPaymentLink] = useState(); //comment out to disable iframe
     const { control, errors, handleSubmit, formState } = useForm({
         mode:'onChange'
     });
@@ -30,17 +34,20 @@ const Payment = () => {
         if(data?.data){
             const { data: dataResult } = data;
             toast({title: `${dataResult.message}`, status:"success"})
-            // window.location.href = `${dataResult.paymentLink}`; //uncomment to  use redirect
-            setPaymentLink(`${dataResult.paymentLink}`) //comment out to disable iframe
+            window.location.href = `${dataResult.paymentLink}`; //uncomment to  use redirect
+            // setPaymentLink(`${dataResult.paymentLink}`) //comment out to disable iframe
         }
     },[data])
     const handlePayment = (values) => {
         const newValue = {
-            ...values,
-            amount: +values.amount,
-            redirectUrl: 'https://www.credodemo.com/paymentsuccess',
-            transRef: 'iy67f64hvc70'
-        }
+          ...values,
+          amount: +values.amount,
+          redirectUrl:"https://merchant-test.vercel.app/paymentsuccess",
+          transRef: `iy67f${generateRandomNumber(
+            10,
+            60
+          )}hvc${generateRandomNumber(10, 90)}`,
+        };
         console.log("values",newValue)
         mutate(newValue)
     }
@@ -48,7 +55,7 @@ const Payment = () => {
     return (
         <>
         <Container maxW="container.xl" position={"relative"}>
-            {paymentLink &&
+            {/* {paymentLink &&
             <iframe
                 title="Credo Payment"
                 src={paymentLink}
@@ -59,7 +66,7 @@ const Payment = () => {
                     style={{ position: "absolute", zIndex: 5 }}
                     name="pay"
             />
-            }
+            } */}
             <Box w="100%" d="flex" justifyContent="center" alignItems="center" flexDirection="column" mt="2.5rem">
                 <Text fontSize="2xl">Merchant Payment Page</Text>
                 <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
