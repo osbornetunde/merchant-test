@@ -1,10 +1,14 @@
-import React from 'react';
-import {useSetRecoilState} from "recoil";
+import React, { useEffect } from 'react';
+import { useSetRecoilState } from "recoil";
+import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom'
-import {Box, Button, Container, Text} from "@chakra-ui/react";
+import {Box, Button, Container, Text, useToast} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {Input, Select} from './Component';
-import {paymentStateDetails} from "./atoms/paymentState";
+import { paymentStateDetails } from "./atoms/paymentState";
+import { paymentSlugDetails } from './atoms/paymentSlugState';
+import { makePayment } from './api/payment';
+import { generateRandomNumber } from './utils/helper';
 
 
 const amount = 2700
@@ -20,10 +24,38 @@ const Payment = () => {
     });
 
     const setPaymentDetails = useSetRecoilState(paymentStateDetails)
+    const setPaymentSlug = useSetRecoilState(paymentSlugDetails)
+
+
+    const mutations = useMutation(makePayment);
+    const { mutate, isLoading, data } = mutations
+    console.log("result", data);
+
+    useEffect(()=>{
+        if(data?.data){
+            const { data: dataResult } = data;
+            toast({ title: `${dataResult.message}`, status: "success" })
+            setPaymentSlug(dataResult);
+            history.push("/pay");
+            // window.location.href = `${dataResult.paymentLink}`; //uncomment to  use redirect
+            // setPaymentLink(`${dataResult.paymentLink}`) //comment out to disable iframe
+        }
+    }, [data])
 
     const handlePayment = (values) => {
-            setPaymentDetails(values)
-        history.push('/pay')
+
+        const newValue = {
+          ...values,
+          amount: +values.amount,
+          redirectUrl: "https://www.credodemo.com/paymentsuccess",
+          transRef: `iy67f${generateRandomNumber(
+            10,
+            60
+          )}hvc${generateRandomNumber(10, 90)}`,
+        };
+        setPaymentDetails(newValue);
+        console.log("values",newValue)
+        mutate(newValue)
     }
 
   return (
