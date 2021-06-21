@@ -33,9 +33,10 @@ const Payment = () => {
     useEffect(()=>{
         if(data?.data){
             const { data: dataResult } = data;
-            toast({title: `${dataResult.message}`, status:"success"})
+            toast({ title: `${dataResult.message}`, status: "success" })
+            // console.log("=====>", dataResult)
             window.location.href = `${dataResult.paymentLink}`; //uncomment to  use redirect
-            // setPaymentLink(`${dataResult.paymentLink}`) //comment out to disable iframe
+            setPaymentLink(`${dataResult.paymentLink}`) //comment out to disable iframe
         }
     },[data])
     const handlePayment = (values) => {
