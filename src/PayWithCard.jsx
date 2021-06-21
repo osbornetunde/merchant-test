@@ -77,7 +77,7 @@ const PayWithCard = ( ) => {
             customerPhoneNo: paymentDetails.customerPhoneNo,
             customerName: paymentDetails.customerName,
             "paymentSlug": "0H0UOEsawNjkIxgspANd",
-            "transRef": "iy67f64hvc63",
+            "transRef": "iy67f64hvc15",
             expiryMonth: month,
             expiryYear: year,
             cardNumber: values.cardNumber,
@@ -93,7 +93,7 @@ const PayWithCard = ( ) => {
                 <Text fontSize="2xl">Payment Page</Text>
                 <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
             <form>
-                <Box>
+                {/* <Box>
                     <Input
                         placeholder="Cardholder Name"
                         type="text"
@@ -107,7 +107,7 @@ const PayWithCard = ( ) => {
                         }}
                         defaultValue=""
                     />
-                </Box>
+                </Box> */}
                 <CreditCardInput
                     placeholder="Enter Your card Number"
                     type="tel"
