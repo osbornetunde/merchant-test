@@ -47,8 +47,8 @@ const PayWithCard = () => {
   const paymentDetails = useRecoilValue(paymentStateDetails);
   const paymentSlug = useRecoilValue(paymentSlugDetails);
 
-  // const mutations  = useMutation(directCharge);
-  const mutations = useMutation(directCharge3DS);
+  const mutations  = useMutation(directCharge);
+  // const mutations = useMutation(directCharge3DS);
   const {mutate, isLoading, data} = mutations;
   const {result} = useResponse(
     data,
@@ -214,7 +214,7 @@ const PayWithCard = () => {
               borderRadius="1rem"
               h={"3rem"}
               disabled={!formState.isValid || isLoading}
-              onClick={handleSubmit(paymentWith3DS)}
+              onClick={handleSubmit(handleNext)}
               isLoading={isLoading}>
               Pay Now
             </Button>
