@@ -5,9 +5,8 @@ import {
   Button,
   Text,
   useToast,
-  Grid,
-  GridItem,
   Image,
+  Flex,
 } from "@chakra-ui/react";
 import {Input, Select} from "./Component";
 import {useForm} from "react-hook-form";
@@ -66,11 +65,13 @@ const Payment = () => {
   return (
     <>
       <Container
-        maxW="container.xl"
+        maxW="100%"
+        w="100%"
         position={"relative"}
         padding={0}
-        maxH="container.xl"
-        h="100%">
+        maxH="100%"
+        h="100%"
+        margin="0">
         {/* {paymentLink &&
             <iframe
                 title="Credo Payment"
@@ -83,12 +84,11 @@ const Payment = () => {
                     name="pay"
             />
             } */}
-        <Grid templateColumns="40% 1fr" w="100%" h="100%">
-          <GridItem
+        <Flex  w="100%" h="100%">
+          <Box
             w="100%"
-            h="100%"
             d="flex"
-            justifyContent="center"
+            justifyContent="flex-start"
             alignItems="center"
             flexDirection="column"
             mt="2.5rem">
@@ -193,18 +193,17 @@ const Payment = () => {
                 </Box>
               </form>
             </Box>
-          </GridItem>
-          <GridItem h="100%" w="100%">
+          </Box>
+          <Box h="100%" w="100%">
             <Image
-              //   boxSize="150px"
               h="100%"
               w="100%"
-              objectFit="cover"
+              fit="cover"
               src={Landing}
               alt="bg-image"
             />
-          </GridItem>
-        </Grid>
+          </Box>
+        </Flex>
       </Container>
     </>
   );
