@@ -12,62 +12,64 @@ export const Error = ({ errors, name }) =>
 
 const Input = ({ name, type, placeholder, defaultValue, control, rules, errors, maxLength }) => {
     return (
-        <>
-            <Controller
-                name={name}
-                render={({ value, onChange }) => (
-                    <ChakraInput
-                        isInvalid={errors[name]}
-                        h="50px"
-                        w="100%"
-                        bg="var(--primary-white)"
-                        borderRadius="1rem"
-                        border="1px solid #E5E5E5"
-                        fontSize="1rem"
-                        mt="1.5rem"
-                        type={type}
-                        value={value}
-                        onChange={onChange}
-                        placeholder={placeholder}
-                        maxLength={maxLength}
-                    />
-                )}
-                defaultValue={defaultValue}
-                rules={rules}
-                control={control}
+      <>
+        <Controller
+          name={name}
+          render={({value, onChange}) => (
+            <ChakraInput
+              isInvalid={errors[name]}
+              color="rgba(53, 53, 66, 0.3)"
+              h="50px"
+              w="100%"
+              bg="var(--primary-white)"
+              borderRadius="1rem"
+              border="1px solid #E5E5E5"
+              fontSize="1rem"
+              mt="1.5rem"
+              type={type}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+              maxLength={maxLength}
             />
-            <Error errors={errors} name={name} />
-        </>
+          )}
+          defaultValue={defaultValue}
+          rules={rules}
+          control={control}
+        />
+        <Error errors={errors} name={name} />
+      </>
     );
 };
 
 const Textarea = ({ name, type, placeholder, defaultValue, control, rules, errors }) => {
     return (
-        <>
-            <Controller
-                name={name}
-                render={({ value, onChange }) => (
-                    <ChakraTextarea
-                        isInvalid={errors[name]}
-                        h="32.5rem"
-                        w="100%"
-                        bg="var(--primary-white)"
-                        borderRadius="1rem"
-                        border="1px solid #E5E5E5"
-                        fontSize="1rem"
-                        mt="3rem"
-                        type={type}
-                        value={value}
-                        onChange={onChange}
-                        placeholder={placeholder}
-                    />
-                )}
-                defaultValue={defaultValue}
-                rules={rules}
-                control={control}
+      <>
+        <Controller
+          name={name}
+          render={({value, onChange}) => (
+            <ChakraTextarea
+              isInvalid={errors[name]}
+              h="32.5rem"
+              w="100%"
+              color="rgba(53, 53, 66, 0.3)"
+              bg="var(--primary-white)"
+              borderRadius="1rem"
+              border="1px solid #E5E5E5"
+              fontSize="1rem"
+              mt="3rem"
+              type={type}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
             />
-            <Error errors={errors} name={name} />
-        </>
+          )}
+          defaultValue={defaultValue}
+          rules={rules}
+          control={control}
+        />
+        <Error errors={errors} name={name} />
+      </>
     );
 };
 
@@ -87,6 +89,7 @@ const Textarea = ({ name, type, placeholder, defaultValue, control, rules, error
 //                         borderRadius="1rem"
 //                         border="1px solid #E5E5E5"
 //                         fontSize="1.6rem"
+// color = "rgba(53, 53, 66, 0.3)";
 //                         mt="3rem"
 //                         type={type}
 //                         value={value}
@@ -122,6 +125,7 @@ const Textarea = ({ name, type, placeholder, defaultValue, control, rules, error
 //                         border="1px solid #E5E5E5"
 //                         fontSize="1.6rem"
 //                         mt="3rem"
+// color="rgba(53, 53, 66, 0.3)"
 //                         type={type}
 //                         value={value}
 //                         onChange={onChange}

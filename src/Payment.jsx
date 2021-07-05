@@ -8,7 +8,7 @@ import {
   Image,
   Flex,
 } from "@chakra-ui/react";
-import {Input, Select, PriceDetails} from "./Component";
+import {Input, Select, PriceDetails, MultiSelect} from "./Component";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
 import {makePayment} from "./api/payment";
@@ -50,6 +50,7 @@ const Payment = () => {
       setPaymentLink(`${dataResult.paymentLink}`); //comment out to disable iframe
     }
   }, [data]);
+
   const handlePayment = (values) => {
     const newValue = {
       ...values,
@@ -59,6 +60,7 @@ const Payment = () => {
         10,
         90
       )}`,
+      paymentOptions: values.paymentOptions.map(item => item.value)
     };
     console.log("values", newValue);
     mutate(newValue);
@@ -86,7 +88,7 @@ const Payment = () => {
                     name="pay"
             />
             } */}
-        <Flex  w="100%" h="100%">
+        <Flex w="100%" h="100%">
           <Box
             w="100%"
             d="flex"
@@ -150,7 +152,7 @@ const Payment = () => {
                   }}
                   placeholder={"Please select currency"}
                 />
-                <Select
+                <MultiSelect
                   name="paymentOptions"
                   errors={errors}
                   defaultValue=""
@@ -186,14 +188,8 @@ const Payment = () => {
             </Box>
           </Box>
           <Box h="100%" w="100%" position="relative">
-            <Image
-              h="100%"
-              w="100%"
-              fit="cover"
-              src={Landing}
-              alt="bg-image"
-            />
-            <PriceDetails/>
+            <Image h="100%" w="100%" fit="cover" src={Landing} alt="bg-image" />
+            <PriceDetails />
           </Box>
         </Flex>
       </Container>
