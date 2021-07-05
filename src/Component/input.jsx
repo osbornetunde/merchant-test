@@ -18,7 +18,7 @@ const Input = ({ name, type, placeholder, defaultValue, control, rules, errors, 
                 render={({ value, onChange }) => (
                     <ChakraInput
                         isInvalid={errors[name]}
-                        h="3rem"
+                        h="50px"
                         w="100%"
                         bg="var(--primary-white)"
                         borderRadius="1rem"

@@ -3,6 +3,9 @@
 *::after {
   box-sizing: border-box;
 }
+:root{
+  --primary-white: rgba(255, 255, 255, 0.8);
+}
 
 html {
   width: 100%;

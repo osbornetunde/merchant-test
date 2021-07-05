@@ -8,11 +8,13 @@ import {
   Image,
   Flex,
 } from "@chakra-ui/react";
-import {Input, Select} from "./Component";
+import {Input, Select, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
 import {makePayment} from "./api/payment";
 import Landing from "./assets/img/landing.png";
+
+const amount = 2700
 
 const currencyOptions = [
   {value: "NGN", label: "Naira"},
@@ -51,7 +53,7 @@ const Payment = () => {
   const handlePayment = (values) => {
     const newValue = {
       ...values,
-      amount: +values.amount,
+      amount: amount,
       redirectUrl: "https://www.credodemo.com/paymentsuccess",
       transRef: `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
         10,
@@ -91,7 +93,7 @@ const Payment = () => {
             justifyContent="flex-start"
             alignItems="center"
             flexDirection="column"
-            mt="2.5rem">
+            mt="6.5rem">
             <Text fontSize="2xl">Merchant Payment Page</Text>
             <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
               <form onSubmit={handleSubmit(handlePayment)}>
@@ -134,17 +136,6 @@ const Payment = () => {
                     },
                   }}
                 />
-                <Input
-                  name="amount"
-                  control={control}
-                  errors={errors}
-                  type="number"
-                  defaultValue=""
-                  placeholder="Enter amount"
-                  rules={{
-                    required: {value: true, message: "Please enter amount"},
-                  }}
-                />
                 <Select
                   name="currency"
                   errors={errors}
@@ -180,21 +171,21 @@ const Payment = () => {
                   alignItems="center"
                   mt="1rem">
                   <Button
-                    colorScheme="green"
-                    w="10rem"
+                    colorScheme="blue"
+                    w="14rem"
                     h="3rem"
                     borderRadius="1rem"
                     isLoading={isLoading}
-                    variant="outline"
+                    variant="solid"
                     isDisabled={!formState.isValid}
                     type="submit">
-                    Make Payment
+                    Pay Now
                   </Button>
                 </Box>
               </form>
             </Box>
           </Box>
-          <Box h="100%" w="100%">
+          <Box h="100%" w="100%" position="relative">
             <Image
               h="100%"
               w="100%"
@@ -202,6 +193,7 @@ const Payment = () => {
               src={Landing}
               alt="bg-image"
             />
+            <PriceDetails/>
           </Box>
         </Flex>
       </Container>
