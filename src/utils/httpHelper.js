@@ -14,12 +14,14 @@ const axiosInstance = axios.create({
 
 const axiosInstance2 = axios.create({
   // baseURL: 'https://api.public.credodemo.com/credo-payment/v1/',
-  // headers: { Authorization: 'pk_demo-HoLeGI1eWe6fCxEUEmvkzzAlVdIEL8.V1PWN17N7K-d' },
+  // headers: {
+  //   Authorization: "sk_live-xEJpWtyjMJ6NmixROAM2oBbA1ioz5A.jrbgB17ytY-l",
+  // },
+  headers: { Authorization: 'pk_demo-HoLeGI1eWe6fCxEUEmvkzzAlVdIEL8.V1PWN17N7K-d' },
   baseURL: "https://credo-payments.nugitech.com/v1/",
-  headers: {
-    Authorization: "sk_live-q85FCHD6ob31MHwLzNfRRqjq9wCeVc.ghkWAaRA10-l",
-  },
-  
+  // headers: {
+  //   Authorization: "sk_demo-8YNccGsDdJrVQpF6v2ZRXQzTCKkjtT.1XSClbtYoR-d",
+  // },
 });
 
 const responseHandler = (response) => {

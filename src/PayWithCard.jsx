@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import {useDebounce} from "react-use";
 import {Box, Spacer, Button, Text, Container} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
@@ -9,7 +10,7 @@ import {
   Input,
 } from "./Component";
 import {useResponse} from "./hooks/useResponse";
-import {directCharge, directCharge3DS} from "./api/payment";
+import {directCharge, directCharge3DS, verifyCardNumber} from "./api/payment";
 import cardValidator from "card-validator";
 import {useRecoilValue} from "recoil";
 import {paymentStateDetails} from "./atoms/paymentState";
@@ -39,7 +40,7 @@ export const validateExpiryDate = (value) => {
 };
 
 const PayWithCard = () => {
-  const {control, handleSubmit, errors, formState} = useForm({
+  const {control, handleSubmit, errors, formState, watch} = useForm({
     mode: "onChange",
     criteriaMode: "all",
   });
@@ -47,9 +48,35 @@ const PayWithCard = () => {
   const paymentDetails = useRecoilValue(paymentStateDetails);
   const paymentSlug = useRecoilValue(paymentSlugDetails);
 
-  const mutations  = useMutation(directCharge);
-  // const mutations = useMutation(directCharge3DS);
+  const mutations = useMutation(directCharge);
   const {mutate, isLoading, data} = mutations;
+
+  // const mutations = useMutation(directCharge3DS);
+  const verifyCardMutation = useMutation(verifyCardNumber);
+  const {
+    mutate: verifyCardMutate,
+    isLoading: verifyCardLoading,
+    data: verifyCardData,
+  } = verifyCardMutation;
+
+  const cardNumber = watch("cardNumber");
+
+  const onValidateCardNumber = (values) => {
+    console.log("===>values", String(values).replace(/ /g, ""));
+    if (String(values.trim()).length === 16 || String(values.trim()).length === 19) {
+      const newValue = {
+        cardNumber: String(values).replace(/ /g, ""),
+        orderCurrency: "NGN",
+        paymentSlug: paymentSlug.paymentSlug,
+      };
+      verifyCardMutate(newValue);
+    }
+  };
+
+  console.log("=====> verifyCardDetails", verifyCardData);
+
+  useDebounce(() => onValidateCardNumber(cardNumber), 200, [cardNumber]);
+
   const {result} = useResponse(
     data,
     "Payment Successful",
