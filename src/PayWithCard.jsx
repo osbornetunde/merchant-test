@@ -74,7 +74,7 @@ const PayWithCard = () => {
     }
   };
 
-  console.log("=====> verifyCardDetails", verifyCardData);
+  // console.log("=====> verifyCardDetails", verifyCardData);
 
   useDebounce(() => onValidateCardNumber(cardNumber), 200, [cardNumber]);
 
@@ -84,7 +84,7 @@ const PayWithCard = () => {
     "Failed to make payment"
   );
 
-  console.log("result", result);
+  // console.log("result", result);
 
   useEffect(() => {
     if (Object.entries(result).length > 0) {
