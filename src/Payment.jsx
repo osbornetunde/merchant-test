@@ -1,14 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {
-  Box,
-  Container,
-  Button,
-  Text,
-  useToast,
-  Image,
-  Flex,
-} from "@chakra-ui/react";
-import {Input, Select, PriceDetails, MultiSelect} from "./Component";
+import React, {useEffect} from "react";
+import {Box, Button, Container, Flex, Image, Text, useToast,} from "@chakra-ui/react";
+import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
 import {makePayment} from "./api/payment";
@@ -16,38 +8,24 @@ import Landing from "./assets/img/landing.png";
 
 const amount = 2700
 
-const currencyOptions = [
-  {value: "NGN", label: "Naira"},
-  {value: "USD", label: "US Dollars"},
-  {value: "EUR", lable: "EURO"},
-];
-
-const paymentOptions = [
-  {value: "CARD", label: "Card"},
-  {value: "CASH", label: "Cash"},
-];
-
 const generateRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
-console.log(generateRandomNumber(100, 200));
 
 const Payment = () => {
   const toast = useToast();
-  // const [paymentLink, setPaymentLink] = useState(); //comment out to disable iframe
   const {control, errors, handleSubmit, formState} = useForm({
     mode: "onChange",
   });
   const mutations = useMutation(makePayment);
   const {mutate, isLoading, data} = mutations;
-  console.log("result", data);
+
+
   useEffect(() => {
     if (data?.data) {
       const {data: dataResult} = data;
       toast({title: `${dataResult.message}`, status: "success"});
-      // console.log("=====>", dataResult)
-      window.location.href = `${dataResult.paymentLink}`; //uncomment to  use redirect
-      setPaymentLink(`${dataResult.paymentLink}`); //comment out to disable iframe
+      window.location.href = `${dataResult.paymentLink}`;
     }
   }, [data]);
 
@@ -60,9 +38,10 @@ const Payment = () => {
         10,
         90
       )}`,
-      paymentOptions: values.paymentOptions.map(item => item.value)
+      currency: 'NGN',
+      paymentOptions: 'CARD,BANK'
     };
-    console.log("values", newValue);
+
     mutate(newValue);
   };
 
@@ -76,18 +55,6 @@ const Payment = () => {
         maxH="100%"
         h="100%"
         margin="0">
-        {/* {paymentLink &&
-            <iframe
-                title="Credo Payment"
-                src={paymentLink}
-                sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox"
-                frameBorder="0"
-                height="625px"
-                    width="100%"
-                    style={{ position: "absolute", zIndex: 5 }}
-                    name="pay"
-            />
-            } */}
         <Flex w="100%" h="100%">
           <Box
             w="100%"
@@ -137,34 +104,6 @@ const Payment = () => {
                       message: "Please enter phone number",
                     },
                   }}
-                />
-                <Select
-                  name="currency"
-                  errors={errors}
-                  defaultValue=""
-                  control={control}
-                  options={currencyOptions}
-                  rules={{
-                    required: {
-                      value: true,
-                      message: "Please select currency",
-                    },
-                  }}
-                  placeholder={"Please select currency"}
-                />
-                <MultiSelect
-                  name="paymentOptions"
-                  errors={errors}
-                  defaultValue=""
-                  control={control}
-                  options={paymentOptions}
-                  rules={{
-                    required: {
-                      value: true,
-                      message: "Please select payment option",
-                    },
-                  }}
-                  placeholder={"Please select payment option"}
                 />
                 <Box
                   w="100%"
