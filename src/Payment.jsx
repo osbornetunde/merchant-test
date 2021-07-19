@@ -15,9 +15,6 @@ import Landing from './assets/img/landing.png'
 
 const amount = 2700
 
-const generateRandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
 
 const Payment = () => {
     const history = useHistory()
