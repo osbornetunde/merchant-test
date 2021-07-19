@@ -28,7 +28,6 @@ const Payment = () => {
 
     const mutations = useMutation(makePayment);
     const { mutate, isLoading, data } = mutations
-    console.log("result", data);
 
     useEffect(()=>{
         if(data?.data){
@@ -50,11 +49,10 @@ const Payment = () => {
             10,
             60
           )}hvc${generateRandomNumber(10, 90)}`,
-            currency: 'NGN',
+            currency: 'NGN'
         };
         setPaymentDetails(newValue);
         console.log("values",newValue)
-        mutate(newValue)
     }
 
   return (

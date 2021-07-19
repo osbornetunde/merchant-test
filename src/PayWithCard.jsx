@@ -1,44 +1,17 @@
 import React, {useEffect} from "react";
 import {useDebounce} from "react-use";
-import {Box, Spacer, Button, Text, Container, Image, Flex} from "@chakra-ui/react";
+import {Box, Button, Container, Flex, Image, Spacer, Text} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
-import {
-  CardPinInput,
-  CreditCardInput,
-  ExpiryCardInput,
-  Input, PriceDetails,
-} from "./Component";
+import {CreditCardInput, ExpiryCardInput, Input, PriceDetails,} from "./Component";
 import {useResponse} from "./hooks/useResponse";
-import {directCharge, directCharge3DS, verifyCardNumber} from "./api/payment";
-import cardValidator from "card-validator";
+import {directCharge3DS, verifyCardNumber} from "./api/payment";
 import {useRecoilValue} from "recoil";
 import {paymentStateDetails} from "./atoms/paymentState";
 import {paymentSlugDetails} from "./atoms/paymentSlugState";
-import {generateRandomNumber} from "./utils/helper.js";
+import {generateRandomNumber, validateCardNumber, validateExpiryDate} from "./utils/helper.js";
 import Landing from "./assets/img/landing.png";
 
-cardValidator.creditCardType.addCard({
-  niceType: "VERVE",
-  type: "verve",
-  patterns: [50],
-  gaps: [4, 8, 12, 16],
-  lengths: [18, 19],
-  code: {
-    name: "CVV",
-    size: 3,
-  },
-});
-
-export const validateCardNumber = (value) => {
-  const numberValidation = cardValidator.number(value);
-  return numberValidation.isValid || "Card number is not valid";
-};
-
-export const validateExpiryDate = (value) => {
-  const expirationDateValidation = cardValidator.expirationDate(value);
-  return expirationDateValidation.isValid || "Card has expired";
-};
 
 const PayWithCard = () => {
   const {control, handleSubmit, errors, formState, watch} = useForm({
@@ -49,10 +22,10 @@ const PayWithCard = () => {
   const paymentDetails = useRecoilValue(paymentStateDetails);
   const paymentSlug = useRecoilValue(paymentSlugDetails);
 
-  const mutations = useMutation(directCharge);
+  const mutations = useMutation(directCharge3DS);
   const {mutate, isLoading, data} = mutations;
 
-  // const mutations = useMutation(directCharge3DS);
+
   const verifyCardMutation = useMutation(verifyCardNumber);
   const {
     mutate: verifyCardMutate,
@@ -119,6 +92,10 @@ const PayWithCard = () => {
     };
     mutate(paymentValues);
   };
+
+  console.log('====<=details', paymentDetails)
+
+  //paymentOptions: "CARD,BANK",
 
   const paymentWith3DS = (values) => {
     // values.cardNumber = values?.cardNumber.replace(/ /g, "");
@@ -210,7 +187,7 @@ const PayWithCard = () => {
               borderRadius="1rem"
               h={"3rem"}
               disabled={!formState.isValid || isLoading}
-              onClick={handleSubmit(handleNext)}
+              onClick={handleSubmit(paymentWith3DS)}
               isLoading={isLoading}>
               Pay Now
             </Button>
