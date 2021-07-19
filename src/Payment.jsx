@@ -5,11 +5,12 @@ import { useHistory } from 'react-router-dom'
 import {Box, Button, Container, Flex, Heading, Image, Text, useToast,} from "@chakra-ui/react";
 import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
-import {Input} from './Component';
+import {Input, PriceDetails} from './Component';
 import { paymentStateDetails } from "./atoms/paymentState";
 import { paymentSlugDetails } from './atoms/paymentSlugState';
 import { makePayment } from './api/payment';
 import { generateRandomNumber } from './utils/helper';
+import Landing from './assets/img/landing.png'
 
 
 const amount = 2700
@@ -20,6 +21,7 @@ const generateRandomNumber = (min, max) => {
 
 const Payment = () => {
     const history = useHistory()
+    const toast = useToast()
     const { control, errors, handleSubmit, formState } = useForm({
         mode:'onChange'
     });
@@ -38,8 +40,7 @@ const Payment = () => {
             toast({ title: `${dataResult.message}`, status: "success" })
             setPaymentSlug(dataResult);
             history.push("/pay");
-            // window.location.href = `${dataResult.paymentLink}`; //uncomment to  use redirect
-            // setPaymentLink(`${dataResult.paymentLink}`) //comment out to disable iframe
+
         }
     }, [data])
 
@@ -47,12 +48,13 @@ const Payment = () => {
 
         const newValue = {
           ...values,
-          amount: +values.amount,
+          amount,
           redirectUrl: "https://www.credodemo.com/paymentsuccess",
           transRef: `iy67f${generateRandomNumber(
             10,
             60
           )}hvc${generateRandomNumber(10, 90)}`,
+            currency: 'NGN',
         };
         setPaymentDetails(newValue);
         console.log("values",newValue)
@@ -68,7 +70,8 @@ const Payment = () => {
         padding={0}
         maxH="100%"
         h="100%"
-        margin="0">
+        margin="0"
+      >
         <Flex w="100%" h="100%">
           <Box
             w="100%"
@@ -76,7 +79,8 @@ const Payment = () => {
             justifyContent="flex-start"
             alignItems="center"
             flexDirection="column"
-            mt="6.5rem">
+            mt="6.5rem"
+          >
             <Text fontSize="2xl">Merchant Payment Page</Text>
             <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
               <form onSubmit={handleSubmit(handlePayment)}>
