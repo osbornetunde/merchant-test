@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {useDebounce} from "react-use";
-import {Box, Spacer, Button, Text, Container} from "@chakra-ui/react";
+import {Box, Spacer, Button, Text, Container, Image, Flex} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
 import {
   CardPinInput,
   CreditCardInput,
   ExpiryCardInput,
-  Input,
+  Input, PriceDetails,
 } from "./Component";
 import {useResponse} from "./hooks/useResponse";
 import {directCharge, directCharge3DS, verifyCardNumber} from "./api/payment";
@@ -16,6 +16,7 @@ import {useRecoilValue} from "recoil";
 import {paymentStateDetails} from "./atoms/paymentState";
 import {paymentSlugDetails} from "./atoms/paymentSlugState";
 import {generateRandomNumber} from "./utils/helper.js";
+import Landing from "./assets/img/landing.png";
 
 cardValidator.creditCardType.addCard({
   niceType: "VERVE",
@@ -129,14 +130,24 @@ const PayWithCard = () => {
     mutate(paymentDetails);
   };
   return (
-    <Container maxW="container.xl" position={"relative"}>
-      <Box
+    <Container
+        maxW="100%"
         w="100%"
-        d="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-        mt="2.5rem">
+        position={"relative"}
+        padding={0}
+        maxH="100%"
+        h="100%"
+        margin="0"
+    >
+      <Flex w="100%" h="100%">
+      <Box
+          w="100%"
+          d="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          flexDirection="column"
+          mt="6.5rem"
+      >
         <Text fontSize="2xl">Payment Page</Text>
         <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
           <form>
@@ -187,48 +198,6 @@ const PayWithCard = () => {
                 />
               </Box>
             </Box>
-            <Box d="flex" justifyContent="spaceBetween" alignItems="center">
-              <Box width="30%">
-                <CardPinInput
-                  placeholder="PIN"
-                  type="password"
-                  control={control}
-                  errors={errors}
-                  name="cardPin"
-                  rules={{
-                    required: {
-                      value: true,
-                      message: "Four-Digit PIN is required",
-                    },
-                    maxLength: {value: 4, message: "Must be 4 digits"},
-                  }}
-                  defaultValue=""
-                />
-              </Box>
-              <Spacer size="1rem" />
-              <Box width={"65%"}>
-                <Input
-                  placeholder="Phone Number"
-                  type="tel"
-                  control={control}
-                  errors={errors}
-                  name="phoneNumber"
-                  rules={{
-                    required: {
-                      value: true,
-                      message: "Phone number is required",
-                    },
-                    maxLength: {
-                      value: 11,
-                      message: "Must be 11 digits long without 234",
-                    },
-                    minLength: {value: 11, message: "Must be 11 digits long"},
-                  }}
-                  defaultValue=""
-                />
-              </Box>
-            </Box>
-
             <Button
               w="100%"
               colorScheme="blue.800"
@@ -248,6 +217,11 @@ const PayWithCard = () => {
           </form>
         </Box>
       </Box>
+        <Box h="100%" w="100%" position="relative">
+          <Image h="100%" w="100%" fit="cover" src={Landing} alt="bg-image" />
+          <PriceDetails />
+        </Box>
+      </Flex>
     </Container>
   );
 };
