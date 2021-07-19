@@ -93,8 +93,6 @@ const PayWithCard = () => {
     mutate(paymentValues);
   };
 
-  console.log('====<=details', paymentDetails)
-
   //paymentOptions: "CARD,BANK",
 
   const paymentWith3DS = (values) => {
