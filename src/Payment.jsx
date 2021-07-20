@@ -12,7 +12,7 @@ const generateRandomNumber = (min, max) => {
 };
 
 const amount = 2700
-const redirectUrl= "https://www.credodemo.com/paymentsuccess"
+const redirectUrl= "https://vigorous-tereshkova-485ca4.netlify.app/successful"
 const transRef= `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
     10,
     90
@@ -35,15 +35,13 @@ const callback = () => {
   console.log('callback called')
 }
 
-const publicKey=import.meta.env.VITE_PUBLIC_KEY
-
-
+const publicKey = import.meta.env.VITE_PUBLIC_KEY
 
 
   const handlePayment = (values) => {
   const { customerEmail, customerName, customerPhoneNo} = values
 
-    CredoCheckout(amount, redirectUrl, transRef, paymentOptions, customerEmail, customerName, customerPhoneNo, currency, onClose, callback, publicKey)
+    CredoCheckout({amount, redirectUrl, transRef, paymentOptions, customerEmail, customerName, customerPhoneNo, currency, onClose, callback, publicKey})
   };
 
   return (
