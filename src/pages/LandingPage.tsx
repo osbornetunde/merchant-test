@@ -77,7 +77,7 @@ const LandingPage = () => {
                     boxShadow="lg"
                     _hover={{boxShadow:"0px 21.5645px 17.2516px rgba(51, 51, 51, 0.09)"}}
                 >
-                    <LinkOverlay href="https://vigorous-tereshkova-485ca4.netlify.app">
+                    <LinkOverlay href="https://merchant-test-line.netlify.app">
                         <Text fontSize="lg">Inline Payment</Text>
                     </LinkOverlay>
                 </LinkBox>
@@ -87,6 +87,5 @@ const LandingPage = () => {
     );
 };
 
-//https://vigorous-tereshkova-485ca4.netlify.app/
 
 export default LandingPage;
