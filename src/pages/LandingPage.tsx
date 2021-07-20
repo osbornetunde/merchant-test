@@ -20,7 +20,7 @@ const LandingPage = () => {
                 height={'100%'}
                 p={3}
             >
-            <SimpleGrid columns={3} spacing={10} >
+            <SimpleGrid columns={4} spacing={10} >
                 <LinkBox
                     bg="white"
                      height="10rem"
@@ -66,10 +66,27 @@ const LandingPage = () => {
                         <Text fontSize="lg">Direct Charge with 3ds</Text>
                     </LinkOverlay>
                 </LinkBox>
+                <LinkBox
+                    bg="white"
+                    height="10rem"
+                    w={'12rem'}
+                    rounded="md"
+                    d={'flex'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    boxShadow="lg"
+                    _hover={{boxShadow:"0px 21.5645px 17.2516px rgba(51, 51, 51, 0.09)"}}
+                >
+                    <LinkOverlay href="https://vigorous-tereshkova-485ca4.netlify.app">
+                        <Text fontSize="lg">Inline Payment</Text>
+                    </LinkOverlay>
+                </LinkBox>
             </SimpleGrid>
             </Flex>
         </Container>
     );
 };
+
+//https://vigorous-tereshkova-485ca4.netlify.app/
 
 export default LandingPage;
