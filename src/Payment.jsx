@@ -12,7 +12,7 @@ const generateRandomNumber = (min, max) => {
 };
 
 const amount = 2700
-const redirectUrl= "https://vigorous-tereshkova-485ca4.netlify.app/successful"
+const redirectUrl= "https://merchant-test-line.netlify.app/successful"
 const transRef= `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
     10,
     90
