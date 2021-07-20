@@ -1,48 +1,49 @@
-import React, {useEffect} from "react";
-import {Box, Button, Container, Flex, Heading, Image, Text, useToast,} from "@chakra-ui/react";
+import React from "react";
+import {Box, Button, Container, Flex, Image, Text,} from "@chakra-ui/react"
 import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
-import {useMutation} from "react-query";
-import {makePayment} from "./api/payment";
 import Landing from "./assets/img/landing.png";
+import useScript from './hooks/useScript';
 
-const amount = 2700
+
 
 const generateRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+const amount = 2700
+const redirectUrl= "https://www.credodemo.com/paymentsuccess"
+const transRef= `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
+    10,
+    90
+)}`
+const paymentOptions = ['CARDS','BANK']
+const currency= 'NGN'
+
 const Payment = () => {
-  const toast = useToast();
+   useScript('https://credo.nugitech.com/inline.js');
+
   const {control, errors, handleSubmit, formState} = useForm({
     mode: "onChange",
   });
-  const mutations = useMutation(makePayment);
-  const {mutate, isLoading, data} = mutations;
+
+const onClose = () => {
+  console.log('Modal closed')
+}
+
+const callback = () => {
+  console.log('callback called')
+}
+
+const publicKey=import.meta.env.VITE_PUBLIC_KEY
 
 
-  useEffect(() => {
-    if (data?.data) {
-      const {data: dataResult} = data;
-      toast({title: `${dataResult.message}`, status: "success"});
-      window.location.href = `${dataResult.paymentLink}`;
-    }
-  }, [data]);
+
 
   const handlePayment = (values) => {
-    const newValue = {
-      ...values,
-      amount: amount,
-      redirectUrl: "https://www.credodemo.com/paymentsuccess",
-      transRef: `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
-        10,
-        90
-      )}`,
-      currency: 'NGN',
-      paymentOptions: 'CARD,BANK'
-    };
+  const { customerEmail, customerName, customerPhoneNo} = values
 
-    mutate(newValue);
+    CredoCheckout(amount, redirectUrl, transRef, paymentOptions, customerEmail, customerName, customerPhoneNo, currency, onClose, callback, publicKey)
   };
 
   return (
@@ -116,7 +117,7 @@ const Payment = () => {
                     w="14rem"
                     h="3rem"
                     borderRadius="1rem"
-                    isLoading={isLoading}
+                    // isLoading={isLoading}
                     variant="solid"
                     isDisabled={!formState.isValid}
                     type="submit">
