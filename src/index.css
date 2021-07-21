@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Pangram-Regular';
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/Pangram-Regular.woff2') format('woff2'), url('./assets/fonts/Pangram-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pangram-Medium';
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/Pangram-Medium.woff2') format('woff2'), url('./assets/fonts/Pangram-Medium.woff') format('woff');
+}
+
+
+
 *,
 *::before,
 *::after {
@@ -18,6 +34,7 @@ body {
   max-height: 100vh;
   max-width: 100vw;
   height: 100vh;
+  font-family: 'Pangram-Regular';
 }
 
 body {
@@ -25,6 +42,10 @@ body {
   width: 100%;
   background: #ffffff !important;
   height: 100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family: 'Pangram-Medium';
 }
 
 #root {
