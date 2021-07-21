@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSetRecoilState } from "recoil";
-import { useMutation } from 'react-query';
-import { useHistory } from 'react-router-dom'
-import {Box, Button, Container, Flex, Heading, Image, Text, useToast,} from "@chakra-ui/react";
+import React, {useEffect} from 'react';
+import {useSetRecoilState} from "recoil";
+import {useMutation} from 'react-query';
+import {useHistory} from 'react-router-dom'
+import {Box, Button, Container, Flex, Heading, Image, useToast,} from "@chakra-ui/react";
 import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
-import {Input, PriceDetails} from './Component';
-import { paymentStateDetails } from "./atoms/paymentState";
-import { paymentSlugDetails } from './atoms/paymentSlugState';
-import { makePayment } from './api/payment';
-import { generateRandomNumber } from './utils/helper';
+import {paymentStateDetails} from "./atoms/paymentState";
+import {paymentSlugDetails} from './atoms/paymentSlugState';
+import {makePayment} from './api/payment';
+import {generateRandomNumber} from './utils/helper';
 import Landing from './assets/img/landing.png'
 
 
@@ -78,7 +77,7 @@ const Payment = () => {
             flexDirection="column"
             mt="6.5rem"
           >
-            <Text fontSize="2xl">Merchant Payment Page</Text>
+            <Heading fontSize="2xl">Merchant Payment Page</Heading>
             <Box width="30rem" bg="#ffffff" borderRadius="1rem" p={5}>
               <form onSubmit={handleSubmit(handlePayment)}>
                 <Input
