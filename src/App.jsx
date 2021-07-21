@@ -1,11 +1,10 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom';
 import Payment from "./Payment";
-import SuccessPage from "./SuccessPage";
+import SuccessPage from "./pages/SuccessPage";
 import PayWithCard from "./PayWithCard";
 
 function App() {
-
 
   return (
     <Switch>
