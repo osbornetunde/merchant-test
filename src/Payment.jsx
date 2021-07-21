@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Button, Container, Flex, Image, Text,} from "@chakra-ui/react"
+import {Box, Button, Container, Flex, Image, Heading} from "@chakra-ui/react"
 import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
 import Landing from "./assets/img/landing.png";
