@@ -35,7 +35,6 @@ const Payment = () => {
             toast({ title: `${dataResult.message}`, status: "success" })
             setPaymentSlug(dataResult);
             history.push("/pay");
-
         }
     }, [data])
 
@@ -52,7 +51,7 @@ const Payment = () => {
             currency: 'NGN'
         };
         setPaymentDetails(newValue);
-        console.log("values",newValue)
+        mutate(newValue)
     }
 
   return (
