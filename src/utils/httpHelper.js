@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
     //   Authorization: "sk_live-q85FCHD6ob31MHwLzNfRRqjq9wCeVc.ghkWAaRA10-l",
     // },
   headers: {
-    Authorization: "pk_live-qhuHZyFwf4Qgu5NNjhitZaJx3Z41wu.SNuihBvIZd-l",
+    Authorization: "pk_demo-oZkCJkSyFCdb61ZN00nLPVzl5Bdpqp.Yxeb33I11X-d",
   },
 });
 
