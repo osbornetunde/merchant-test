@@ -1,4 +1,5 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import { useHistory } from 'react-router-dom'
 import {useDebounce} from "react-use";
 import {Box, Button, Container, Flex, Image, Spacer, Text} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
@@ -14,6 +15,8 @@ import Landing from "./assets/img/landing.png";
 
 
 const PayWithCard = () => {
+  const history = useHistory()
+  const [proceed, setProceed] = useState('')
   const {control, handleSubmit, errors, formState, watch} = useForm({
     mode: "onChange",
     criteriaMode: "all",
@@ -36,7 +39,6 @@ const PayWithCard = () => {
   const cardNumber = watch("cardNumber");
 
   const onValidateCardNumber = (values) => {
-    console.log("===>values", String(values).replace(/ /g, ""));
     if (String(values.trim()).length === 16 || String(values.trim()).length === 19) {
       const newValue = {
         cardNumber: String(values).replace(/ /g, ""),
@@ -57,12 +59,21 @@ const PayWithCard = () => {
     "Failed to make payment"
   );
 
-  // console.log("result", result);
+  console.log("result", paymentDetails);
+
+  useEffect(() => {
+    if(verifyCardData && Object.entries(verifyCardData).length){
+      if(verifyCardData.status === 200){
+        setProceed(verifyCardData.data.gatewayRecommendation)
+      }
+    }
+  })
 
   useEffect(() => {
     if (Object.entries(result).length > 0) {
       if (result?.status === 200) {
         console.log("hello");
+        history.push('/successful')
       }
     }
   }, [result]);
@@ -93,15 +104,10 @@ const PayWithCard = () => {
     mutate(paymentValues);
   };
 
-  //paymentOptions: "CARD,BANK",
+
 
   const paymentWith3DS = (values) => {
-    // values.cardNumber = values?.cardNumber.replace(/ /g, "");
-    // const value = {
-    //   orderCurrency: paymentDetails.currency,
-    //   cardNumber: values.cardNumber,
-    //   paymentSlug: paymentSlug.paymentSlug,
-    // };
+
     mutate(paymentDetails);
   };
   return (
@@ -184,7 +190,7 @@ const PayWithCard = () => {
               lineHeight="10px"
               borderRadius="1rem"
               h={"3rem"}
-              disabled={!formState.isValid || isLoading}
+              disabled={!formState.isValid && proceed === 'PROCEED'|| isLoading }
               onClick={handleSubmit(paymentWith3DS)}
               isLoading={isLoading}>
               Pay Now
