@@ -78,37 +78,42 @@ const PayWithCard = () => {
     }
   }, [result]);
 
-  const handleNext = (values) => {
-    values.cardNumber = values?.cardNumber.replace(/ /g, "");
-
-    let month = values.expiryDate.split("/")[0];
-    let year = values.expiryDate.split("/")[1];
-    const reference = `iy67f${generateRandomNumber(
-      10,
-      60
-    )}hvc${generateRandomNumber(10, 90)}`;
-
-    const paymentValues = {
-      orderAmount: +paymentDetails.amount,
-      orderCurrency: paymentDetails.currency,
-      customerEmail: paymentDetails.customerEmail,
-      customerPhoneNo: paymentDetails.customerPhoneNo,
-      customerName: paymentDetails.customerName,
-      paymentSlug: paymentSlug.paymentSlug,
-      transRef: reference,
-      expiryMonth: month,
-      expiryYear: year,
-      cardNumber: values.cardNumber,
-      securityCode: values.securityCode,
-    };
-    mutate(paymentValues);
-  };
+  // const handleNext = (values) => {
+  //   values.cardNumber = values?.cardNumber.replace(/ /g, "");
+  //
+  //   let month = values.expiryDate.split("/")[0];
+  //   let year = values.expiryDate.split("/")[1];
+  //   const reference = `iy67f${generateRandomNumber(
+  //     10,
+  //     60
+  //   )}hvc${generateRandomNumber(10, 90)}`;
+  //
+  //   const paymentValues = {
+  //     orderAmount: +paymentDetails.amount,
+  //     orderCurrency: paymentDetails.currency,
+  //     customerEmail: paymentDetails.customerEmail,
+  //     customerPhoneNo: paymentDetails.customerPhoneNo,
+  //     customerName: paymentDetails.customerName,
+  //     paymentSlug: paymentSlug.paymentSlug,
+  //     transRef: reference,
+  //     expiryMonth: month,
+  //     expiryYear: year,
+  //     cardNumber: values.cardNumber,
+  //     securityCode: values.securityCode,
+  //   };
+  //   mutate(paymentValues);
+  // };
 
 
 
   const paymentWith3DS = (values) => {
 
-    mutate(paymentDetails);
+    const newPaymentDetails = {
+      ...paymentDetails,
+      paymentOptions: "CARD,BANK"
+    }
+    console.log("====>Payment details",newPaymentDetails)
+    mutate(newPaymentDetails);
   };
   return (
     <Container
