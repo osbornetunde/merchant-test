@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Box, Button, Container, Flex, Heading, Image, Text, useToast,} from "@chakra-ui/react";
+import {Box, Button, Container, Flex, Heading, Image, useToast,} from "@chakra-ui/react";
 import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";

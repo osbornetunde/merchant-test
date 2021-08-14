@@ -1,9 +1,9 @@
-import { API_BASE_URL } from './constant';
 import { axiosInstance } from './httpHelper';
-import { clearDataFromStorage, getDataFromStorage } from './storage';
-import { message } from 'antd';
+import { getDataFromStorage } from './storage';
+import {useToast,} from "@chakra-ui/react";}
 
 export const interceptor = () => {
+    const toast = useToast()
     const token = getDataFromStorage('token');
 
     axiosInstance.interceptors.request.use(
@@ -23,23 +23,16 @@ export const interceptor = () => {
             return response;
         },
         function (error) {
-            console.log('error*', error.response);
-            const originalRequest = error.config;
             if (error?.response === undefined) {
-                message.error('No response from the server');
+                toast({title:'No response from the server', status:'info'})
             } else if (error.response.status === 401) {
-                message.error('Unauthorized');
-            } else if (error.response.status === 401 && originalRequest.url === `${API_BASE_URL}/token`) {
-                message.error('UnAuthorized');
-                // history.push('/');
-                clearDataFromStorage();
-                return Promise.reject(error);
+                toast({title:'Unauthorized', status:'error'})
             } else if (error.response.status === 403) {
-                message.error('Access Denied');
+                toast({title:'Access Denied', status:'error'})
             } else if (error.response.status === 400) {
-                message.error(`${error.response}`);
+                toast({title:`${error.response}`, status:'error'})
             } else if (error.response.status === 500) {
-                message.error(`${error.response.data.error}`);
+                toast({title:`${error.response.data.error}`, status:'error'})
             }
             return Promise.reject(error.response);
         },
