@@ -1,6 +1,6 @@
 import { axiosInstance } from './httpHelper';
 import { getDataFromStorage } from './storage';
-import {useToast,} from "@chakra-ui/react";}
+import {useToast,} from "@chakra-ui/react";
 
 export const interceptor = () => {
     const toast = useToast()
