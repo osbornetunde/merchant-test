@@ -1,28 +1,17 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  // baseURL: 'https://api.public.credodemo.com/credo-payment/v1/',
-  // headers: { Authorization: 'pk_demo-HoLeGI1eWe6fCxEUEmvkzzAlVdIEL8.V1PWN17N7K-d' },
-  baseURL: "https://credo-payments.nugitech.com/v1/",
-    // headers: {
-    //   Authorization: "sk_live-q85FCHD6ob31MHwLzNfRRqjq9wCeVc.ghkWAaRA10-l",
-    // },
+  baseURL: "https://api.public.credodemo.com/credo-payment/v1/",
   headers: {
-    Authorization: "pk_demo-oZkCJkSyFCdb61ZN00nLPVzl5Bdpqp.Yxeb33I11X-d",
+    Authorization: "pk_demo-85mnMAejb480LTdn0WbG39GdoXuEzJ.nUdQT5I9Pn-d",
   },
+//   baseURL: "https://credo-payments.nugitech.com/v1/",
+//   headers: {
+//     Authorization: "pk_demo-oZkCJkSyFCdb61ZN00nLPVzl5Bdpqp.Yxeb33I11X-d",
+//   },
 });
 
-const axiosInstance2 = axios.create({
-  // baseURL: 'https://api.public.credodemo.com/credo-payment/v1/',
-  // headers: {
-  //   Authorization: "sk_live-xEJpWtyjMJ6NmixROAM2oBbA1ioz5A.jrbgB17ytY-l",
-  // },
-  headers: { Authorization: 'pk_demo-HoLeGI1eWe6fCxEUEmvkzzAlVdIEL8.V1PWN17N7K-d' },
-  baseURL: "https://credo-payments.nugitech.com/v1/",
-  // headers: {
-  //   Authorization: "sk_demo-8YNccGsDdJrVQpF6v2ZRXQzTCKkjtT.1XSClbtYoR-d",
-  // },
-});
+
 
 const responseHandler = (response) => {
     const { data, status, ...others } = response;
