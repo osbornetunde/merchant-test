@@ -6,6 +6,8 @@ const axiosInstance = axios.create({
   headers: {Authorization: import.meta.env.VITE_PUBLIC_KEY},
 });
 
+
+
 const responseHandler = (response) => {
   const {data, status, ...others} = response;
   return {data, status, error: false, ...others};
