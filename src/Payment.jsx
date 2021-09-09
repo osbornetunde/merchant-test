@@ -21,7 +21,7 @@ const paymentOptions = ['CARDS','BANK']
 const currency= 'NGN'
 
 const Payment = () => {
-   useScript('https://www.credodemo.com/inline.js');
+   useScript("https://credocentral.com/inline.js");
 
   const {control, errors, handleSubmit, formState} = useForm({
     mode: "onChange",
