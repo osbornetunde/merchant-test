@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  // baseURL: 'https://api.public.credodemo.com/credo-payment/v1/',
-  baseURL: "https://api.credocentral.com/credo-payment/v1/",
+  baseURL: 'https://api.public.credodemo.com/credo-payment/v1/',
+  // baseURL: "https://api.credocentral.com/credo-payment/v1/",
   // baseURL: "https://credo-payments.nugitech.com/v1/",
   headers: {Authorization: import.meta.env.VITE_PUBLIC_KEY},
 });
