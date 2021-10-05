@@ -107,6 +107,14 @@ const Payment = () => {
                     },
                   }}
                 />
+                <Input
+                  name="customFields"
+                  control={control}
+                  errors={errors}
+                  type="string"
+                  defaultValue=""
+                  placeholder="Custom field"
+                />
                 <Box
                   w="100%"
                   d="flex"
