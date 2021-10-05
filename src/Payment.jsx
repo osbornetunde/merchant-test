@@ -47,10 +47,9 @@ const Payment = () => {
       )}`,
       currency: "NGN",
       paymentOptions: "CARD,BANK",
-      // customFields: JSON.stringify({
-      //   FeeType: "Driver license",
-      //   ServiceType: "Application Fee",
-      // }),
+      customFields: JSON.stringify({
+        "Fee Type": `${values["Fee Type"]}`,
+      }),
     };
 
     mutate(newValue);
@@ -125,12 +124,12 @@ const Payment = () => {
                   placeholder="amount"
                 />
                 <Input
-                  name="customFields"
+                  name="Fee Type"
                   control={control}
                   errors={errors}
                   type="string"
                   defaultValue=""
-                  placeholder="Custom Field"
+                  placeholder="Fee Type"
                 />
                 <Box
                   w="100%"
