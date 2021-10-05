@@ -1,12 +1,20 @@
 import React, {useEffect} from "react";
-import {Box, Button, Container, Flex, Heading, Image, useToast,} from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  useToast,
+} from "@chakra-ui/react";
 import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
 import {useMutation} from "react-query";
 import {makePayment} from "./api/payment";
 import Landing from "./assets/img/landing.png";
 
-const amount = 2700
+// const amount = 2700;
 
 const generateRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -20,7 +28,6 @@ const Payment = () => {
   const mutations = useMutation(makePayment);
   const {mutate, isLoading, data} = mutations;
 
-
   useEffect(() => {
     if (data?.data) {
       const {data: dataResult} = data;
@@ -32,20 +39,22 @@ const Payment = () => {
   const handlePayment = (values) => {
     const newValue = {
       ...values,
-      amount: amount,
+      amount: values.amount,
       redirectUrl: "https://merchant-test.vercel.app/successful",
       transRef: `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
         10,
         90
       )}`,
-      currency: 'NGN',
-      paymentOptions: 'CARD,BANK'
+      currency: "NGN",
+      paymentOptions: "CARD,BANK",
+      customFields: JSON.stringify({
+        FeeType: "Driver license",
+        ServiceType: "Application Fee",
+      }),
     };
 
     mutate(newValue);
   };
-
-
 
   return (
     <>
@@ -108,12 +117,20 @@ const Payment = () => {
                   }}
                 />
                 <Input
+                  name="amount"
+                  control={control}
+                  errors={errors}
+                  type="number"
+                  defaultValue=""
+                  placeholder="amount"
+                />
+                <Input
                   name="customFields"
                   control={control}
                   errors={errors}
                   type="string"
                   defaultValue=""
-                  placeholder="Custom field"
+                  placeholder="Custom Field"
                 />
                 <Box
                   w="100%"
