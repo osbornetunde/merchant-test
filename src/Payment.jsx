@@ -47,10 +47,10 @@ const Payment = () => {
       )}`,
       currency: "NGN",
       paymentOptions: "CARD,BANK",
-      customFields: JSON.stringify({
-        FeeType: "Driver license",
-        ServiceType: "Application Fee",
-      }),
+      // customFields: JSON.stringify({
+      //   FeeType: "Driver license",
+      //   ServiceType: "Application Fee",
+      // }),
     };
 
     mutate(newValue);
