@@ -14,7 +14,7 @@ import {useMutation} from "react-query";
 import {makePayment} from "./api/payment";
 import Landing from "./assets/img/landing.png";
 
-// const amount = 2700;
+const amount = 2700;
 
 const generateRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -39,17 +39,14 @@ const Payment = () => {
   const handlePayment = (values) => {
     const newValue = {
       ...values,
-      amount: values.amount,
+      amount,
       redirectUrl: "https://merchant-test.vercel.app/successful",
       transRef: `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
         10,
         90
       )}`,
       currency: "NGN",
-      paymentOptions: "CARD,BANK",
-      customFields: JSON.stringify({
-        "Fee Type": `${values["Fee Type"]}`,
-      }),
+      paymentOptions: "CARD,BANK"
     };
 
     mutate(newValue);
@@ -115,22 +112,22 @@ const Payment = () => {
                     },
                   }}
                 />
-                <Input
+                {/* <Input
                   name="amount"
                   control={control}
                   errors={errors}
                   type="number"
                   defaultValue=""
                   placeholder="amount"
-                />
-                <Input
+                /> */}
+                {/* <Input
                   name="Fee Type"
                   control={control}
                   errors={errors}
                   type="string"
                   defaultValue=""
                   placeholder="Fee Type"
-                />
+                /> */}
                 <Box
                   w="100%"
                   d="flex"
