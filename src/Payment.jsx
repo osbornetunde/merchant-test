@@ -1,47 +1,56 @@
 import React from "react";
-import {Box, Button, Container, Flex, Image, Heading} from "@chakra-ui/react"
+import {Box, Button, Container, Flex, Image, Heading} from "@chakra-ui/react";
 import {Input, PriceDetails} from "./Component";
 import {useForm} from "react-hook-form";
 import Landing from "./assets/img/landing.png";
-import useScript from './hooks/useScript';
-
-
+import useScript from "./hooks/useScript";
 
 const generateRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-const amount = 2700
-const redirectUrl= "https://merchant-test-line.netlify.app/successful"
-const transRef= `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
-    10,
-    90
-)}`
-const paymentOptions = ['CARDS','BANK']
-const currency= 'NGN'
+const amount = 2700;
+const redirectUrl = "https://merchant-test-line.netlify.app/successful";
+const transRef = `iy67f${generateRandomNumber(10, 60)}hvc${generateRandomNumber(
+  10,
+  90
+)}`;
+const paymentOptions = ["CARDS", "BANK"];
+const currency = "NGN";
 
 const Payment = () => {
-   useScript("https://www.credodemo.com/inline.js");
+  useScript("https://www.credocentral.com/inline.js");
 
   const {control, errors, handleSubmit, formState} = useForm({
     mode: "onChange",
   });
 
-const onClose = () => {
-  console.log('Modal closed')
-}
+  const onClose = () => {
+    console.log("Modal closed");
+  };
 
-const callback = () => {
-  console.log('callback called')
-}
+  const callback = (value) => {
+    console.log("callback called", value);
+  };
 
-const publicKey = import.meta.env.VITE_PUBLIC_KEY
-
+  const publicKey = import.meta.env.VITE_PUBLIC_KEY;
 
   const handlePayment = (values) => {
-  const { customerEmail, customerName, customerPhoneNo} = values
+    const {customerEmail, customerName, customerPhoneNo} = values;
 
-    CredoCheckout({amount, redirectUrl, transRef, paymentOptions, customerEmail, customerName, customerPhoneNo, currency, onClose, callback, publicKey})
+    CredoCheckout({
+      amount,
+      redirectUrl,
+      transRef,
+      paymentOptions,
+      customerEmail,
+      customerName,
+      customerPhoneNo,
+      currency,
+      onClose,
+      callback,
+      publicKey,
+    });
   };
 
   return (
