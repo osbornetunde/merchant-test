@@ -110,6 +110,7 @@ const PayWithCard = () => {
 
     const newPaymentDetails = {
       ...paymentDetails,
+      paymentSlug: paymentSlug.paymentSlug,
       paymentOptions: "CARD,BANK"
     }
     console.log("====>Payment details",newPaymentDetails)
