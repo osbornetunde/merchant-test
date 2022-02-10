@@ -1,23 +1,27 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
+  baseURL: "https://api.credocentral.com/credo-payment/v1/",
+  headers: {
+    Authorization: "pk_demo-aOZtCJrBbNxjYpTfwoCUFBmOwKT3qZ.Od4fhZkN2N-d",
+  },
   // baseURL: "https://api.public.credodemo.com/credo-payment/v1/",
   // headers: {
   //   Authorization: "pk_demo-85mnMAejb480LTdn0WbG39GdoXuEzJ.nUdQT5I9Pn-d",
   // },
-  baseURL: "https://credo-payments.nugitech.com/v1/",
-  headers: {
-    Authorization: "pk_demo-oZkCJkSyFCdb61ZN00nLPVzl5Bdpqp.Yxeb33I11X-d",
-  },
+  //   baseURL: "https://credo-payments.nugitech.com/v1/",
+  //   headers: {
+  //     Authorization: "pk_demo-oZkCJkSyFCdb61ZN00nLPVzl5Bdpqp.Yxeb33I11X-d",
+  //   },
 });
 
 const responseHandler = (response) => {
-  const {data, status, ...others} = response;
-  return {data, status, error: false, ...others};
+  const { data, status, ...others } = response;
+  return { data, status, error: false, ...others };
 };
 
 const errorHandler = (response) => {
-  const {data} = response;
+  const { data } = response;
   return data;
 };
 
@@ -51,7 +55,7 @@ export const makePutRequest = async (
   configParams = {}
 ) => {
   try {
-    const {data} = await axiosInstance.put(
+    const { data } = await axiosInstance.put(
       requestURL,
       requestData,
       configParams
