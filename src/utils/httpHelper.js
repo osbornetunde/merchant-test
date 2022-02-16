@@ -1,13 +1,14 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://api.credocentral.com/credo-payment/v1/",
+  // baseURL: "https://api.credocentral.com/credo-payment/v1/",
+  baseURL: "https://credo-payments.nugitech.com/v1/",
+  // headers: {
+  //   Authorization: "pk_demo-aOZtCJrBbNxjYpTfwoCUFBmOwKT3qZ.Od4fhZkN2N-d",
+  // },
   headers: {
-    Authorization: "pk_demo-aOZtCJrBbNxjYpTfwoCUFBmOwKT3qZ.Od4fhZkN2N-d",
+    Authorization: "pk_demo-oZkCJkSyFCdb61ZN00nLPVzl5Bdpqp.Yxeb33I11X-d",
   },
-  //   headers: {
-  //     Authorization: "pk_demo-oZkCJkSyFCdb61ZN00nLPVzl5Bdpqp.Yxeb33I11X-d",
-  //   },
 });
 
 const responseHandler = (response) => {
